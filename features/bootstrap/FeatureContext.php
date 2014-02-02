@@ -31,15 +31,22 @@ class FeatureContext extends MinkContext
         // Initialize your context here
     }
 
-//
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        doSomethingWith($argument);
-//    }
-//
+    /**
+     * @Then /^I should see the coins:$/
+     */
+    public function iShouldSeeTheCoins(TableNode $table)
+    {   
+        $coinsEl = $this
+            ->getSession()
+            ->getPage()
+            ->findAll('css', '.coin')
+        ;
+
+        foreach($table->getHash() as $coinData){
+
+            $coin = $coinData['coin'];
+            $count = $coinData['count'];
+
+        }
+    }
 }

@@ -60,6 +60,13 @@ class ToPenceConverterSpec extends ObjectBehavior
         ]);
     }
 
+    function it_should_ignore_leading_zeros_before_the_decimal_point()
+    {
+        $this->assertConvertBehaviour([
+            '001.41p'   => 141
+        ]);
+    }
+
     /**
      * @param $io   input + output values in form [ input => output ]
      */

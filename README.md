@@ -1,0 +1,1 @@
+#BBC Coin Algorithm Test

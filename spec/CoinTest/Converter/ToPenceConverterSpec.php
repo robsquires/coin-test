@@ -67,6 +67,12 @@ class ToPenceConverterSpec extends ObjectBehavior
         ]);
     }
 
+    function it_should_round_to_2_decimal_places()
+    {
+        $this->assertConvertBehaviour([
+            '4.235p'   => 424
+        ]);
+    }
     /**
      * @param $io   input + output values in form [ input => output ]
      */

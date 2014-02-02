@@ -28,17 +28,20 @@ class ToPenceConverter
             $poundsToPence = 100;
         }
 
-        preg_match('/(\d+)\.?(\d+)?/', $amount, $matches);
+        preg_match('/(\d+)\.?(\d\d)?(\d)?/', $amount, $matches);
 
         $pence = $matches[1];
-        if(count($matches) == 3){ //must have found a decimal
+        if(count($matches) > 2){ //must have found a decimal
             $pence = $matches[1] . $matches[2];
         }
-        var_dump($amount);
-        var_Dump($pence);
-        var_dump($poundsToPence);
+        if(isset($matches[3])){ //found a 3rd decimal point so rounding to nearest whole pence
+            if($matches[3] >= 5){
+                $pence++;
+            }else{
+                $pence--;
+            }
 
-
+        }
 
         return (integer) ($pence * $poundsToPence);
     }

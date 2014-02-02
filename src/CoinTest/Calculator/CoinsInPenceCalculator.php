@@ -26,14 +26,13 @@ class CoinsInPenceCalculator
 
             $coin = [ 'designation' => $designation ];
 
-            
-            if($remainingAmount == 0 ){//if nothing left will continue to loop through all designations
-                $coin['count'] = 0;
-
-            }else{ //otherwise work how how many coins and work to the remainder
-                $coin['count'] = (integer) $remainingAmount / $value;
-                $remainingAmount =  $amount % $value;
+            $numberCoins = floor( $remainingAmount / $value); //always floor as we're interested in whole coins only
+            //var_dump($remainingAmount, $designation, $value, $numberCoins);
+            if($numberCoins > 0){
+                $remainingAmount =  $remainingAmount % $value;
             }
+            $coin['count'] = (integer) $numberCoins; //makes sense for the count to be an integer
+          
             $coins[] = $coin;
         }
 

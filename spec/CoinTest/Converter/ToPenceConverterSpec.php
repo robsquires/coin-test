@@ -16,23 +16,25 @@ class ToPenceConverterSpec extends ObjectBehavior
     function it_should_convert_numerical_strings_to_pence()
     {
         $this->assertConvertBehaviour([ 
-            4 => 4,
-            85 => 85 
+            4   => 4,
+            85  => 85 
         ]);
     }
 
     function it_should_ignore_the_pence_character()
     {
         $this->assertConvertBehaviour([
-            '197p' => 197,
-            '2p' => 2
+            '197p'  => 197,
+            '2p'    => 2
         ]);
     }
 
     function it_should_understand_the_decimal_point()
     {
         $this->assertConvertBehaviour([
-            '1.87' => 187
+            '1.87'  => 187,
+            '1.5'   => 150,
+            '28.60' => 2860
         ]);
     }
 
@@ -70,9 +72,10 @@ class ToPenceConverterSpec extends ObjectBehavior
     function it_should_round_to_2_decimal_places()
     {
         $this->assertConvertBehaviour([
-            '4.235p'   => 424,
+            '4.235p'        => 424,
             '£1.257422457p' => 126,
-            '0046.373p'   => 4637
+            '0046.373p'     => 4637,
+            '273.500'       => 27350
         ]);
     }
     /**

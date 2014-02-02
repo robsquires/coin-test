@@ -46,7 +46,14 @@ class Application extends SilexApplication
             $form = $app['form.factory']
                 ->createBuilder('form')
                 ->add('amount', 'text', [
-                    'constraints' => [ new Assert\NotBlank() ]
+                    'constraints' => [ 
+                        new Assert\NotBlank(), //validating 'empty string'
+
+                        new Assert\Regex([ // validating 'missing digits'
+                             'pattern'     => '/[0-9]/',
+                             'message' => 'Your amount should contain at least one numeric digit'
+                        ])
+                    ]
                 ]) //adding the 'amount' text field
                 ->getForm()
             ;

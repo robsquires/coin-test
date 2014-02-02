@@ -3,9 +3,13 @@
 namespace CoinTest;
 
 use Silex\Application as SilexApplication;
+use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\FormServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
+
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * class Application
  **/
@@ -22,8 +26,8 @@ class Application extends SilexApplication
 
         $app['debug'] = true;
 
-        $app->register(new FormServiceProvider()); //used to build forms
-
+        $app->register(new FormServiceProvider()); //to build forms
+        $app->register(new ValidatorServiceProvider()); //to validate form input
         $app->register(new TwigServiceProvider(), [ 
             'twig.path' => __DIR__.'/views',
         ]);
@@ -34,17 +38,22 @@ class Application extends SilexApplication
 
 
         // Routing
-        $this->get('/', function () use ( $app ) {
+        $this->match('/', function (Request $request) use ( $app ) {
 
 
-            $data = [ 'amount' => 'Please enter an amount in pence'];
 
             //building the form
             $form = $app['form.factory']
-                ->createBuilder('form', $data)
-                ->add('amount', 'text') //adding the 'amount' text field
+                ->createBuilder('form')
+                ->add('amount', 'text', [
+                    'constraints' => [ new Assert\NotBlank() ]
+                ]) //adding the 'amount' text field
                 ->getForm()
             ;
+
+            $form->handleRequest($request);
+
+
             //rendering and returning the HTML back to the application
             return $app['twig']
                 ->render(

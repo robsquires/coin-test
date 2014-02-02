@@ -15,13 +15,29 @@ class ToPenceConverterSpec extends ObjectBehavior
 
     function it_should_convert_numerical_strings_to_pence()
     {
-        $io = [4 => 4, 85 => 85];
+        $this->assertConvertBehaviour([ 
+            4 => 4,
+            85 => 85 
+        ]);
+    }
 
+    function it_should_ignore_the_pence_character()
+    {
+        $this->assertConvertBehaviour([
+            '197p' => 197,
+            '2p' => 2
+        ]);
+    }
+
+
+    /**
+     * @param   $io input + output values in form [ input => output ]
+     */
+    protected function assertConvertBehaviour($io)
+    {
         foreach($io as $input => $output){
             $this->convert($input)->shouldReturn($output);
         }
     }
-
-
 
 }

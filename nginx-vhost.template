@@ -1,0 +1,36 @@
+server {
+  
+  set $app_path APP_PATH/web;
+
+  listen 80;
+  server_name APP_NAME.robsquire.es APP_NAME.local;
+
+  root $app_path;
+
+  error_log /var/log/nginx/APP_NAME.error.log;
+  access_log /var/log/nginx/APP_NAME.access.log;
+
+  client_max_body_size 60M;
+
+  # strip app.php/ prefix if it is present
+  rewrite ^/app\.php/?(.*)$ /$1 permanent;
+
+  location / {
+    index app.php;
+    try_files $uri @rewriteapp;
+  }
+
+  location @rewriteapp {
+    rewrite ^(.*)$ /app.php/$1 last;
+  }
+
+  # pass the PHP scripts to FastCGI server via unix socket
+  location ~ ^/app.php(/|$) {
+    root $app_path;
+    fastcgi_pass unix:/var/run/php5-fpm.sock;
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    include fastcgi_params;
+    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_param  HTTPS              off;
+  }
+}

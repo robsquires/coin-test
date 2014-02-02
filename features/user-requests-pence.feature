@@ -5,6 +5,7 @@ Feature: User requests number of pence for a given amount
 
     Scenario: A user can visit the homepage
          Then I should see text matching "Coin Test"
+          And I should see text matching "Enter an monetary amount above"
 
 
     Scenario Outline: The application should display an error when invalid input is provided

@@ -10,6 +10,9 @@ use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
 use CoinTest\Controller\FormController;
+use CoinTest\Converter\ToPenceConverter;
+use CoinTest\Bank\SterlingBank;
+use CoinTest\Calculator\CoinsInPenceCalculator;
 
 /**
  * class Application
@@ -38,7 +41,22 @@ class Application extends SilexApplication
         ]);
 
         $app['app.controller.form'] = $app->share(function() use ($app) {
-            return new FormController($app);
+
+            return new FormController($app, $app['converter.toPence'], $app['calculator.coinsInPence']);
+        });
+
+
+        //coin-test services
+
+        $app['converter.toPence'] = $app->share(function() {
+            return new ToPenceConverter();
+        });
+
+        $app['bank.sterling'] = $app->share(function() {
+            return new SterlingBank();
+        });
+        $app['calculator.coinsInPence'] = $app->share(function() use ($app) {
+            return new CoinsInPenceCalculator($app['bank.sterling']);
         });
 
         // Routing

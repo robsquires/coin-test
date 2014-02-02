@@ -36,17 +36,35 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeTheCoins(TableNode $table)
     {   
-        $coinsEl = $this
+        $coinEls = $this
             ->getSession()
             ->getPage()
             ->findAll('css', '.coin')
         ;
 
+        $actual = [];
+        foreach($coinEls as $el){
+
+            $matches = [];
+            preg_match('/(.*) \| (.*)/', $el->getText(), $matches);
+            $actual[$matches[1]] = $matches[2];
+        }
+
         foreach($table->getHash() as $coinData){
-
             $coin = $coinData['coin'];
-            $count = $coinData['count'];
+            $desiredCount = $coinData['count'];
+            $actualCount = $actual[$coin];
 
+            if( $actualCount != $desiredCount){
+                throw new \Exception(
+                    sprintf(
+                        'Error with coin %s : Expected %s, found %s',
+                        $coin,
+                        $desiredCount,
+                        $actualCount
+                    )
+                );
+            }
         }
     }
 }

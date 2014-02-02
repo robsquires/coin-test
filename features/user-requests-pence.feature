@@ -20,7 +20,8 @@ Feature: User requests number of pence for a given amount
             | £1x.0p | Your amount should not contain non-numeric characters   |
 
     Scenario: The application should return the combination of coins for the amount provided
-         When fill in "form_amount" with "4"
+        Given fill in "form_amount" with "4"
+         When I press "Submit"
          Then I should see the coins:
             | coin | count  |
             | £2   | 0      |

@@ -8,9 +8,18 @@
 
         <form action="/" method="post">
             {{ form_widget(form) }}
-
             <input type="submit" name="submit" value="Submit" />
         </form>
+
+        {% if coins|length > 0 %}
+            <ul>
+            {% for coin in coins %}
+                <li class='coin' >{{coin.designation}} | {{coin.count}} </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <div>Enter an monetary amount above</div>
+        {% endif %}
     </body>
 
 

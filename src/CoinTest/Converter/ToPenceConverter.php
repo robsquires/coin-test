@@ -34,11 +34,11 @@ class ToPenceConverter
         if(count($matches) > 2){ //must have found a decimal
             $pence = $matches[1] . $matches[2];
         }
-        if(isset($matches[3])){ //found a 3rd decimal point so rounding to nearest whole pence
+
+        //found a 3rd decimal point so rounding to nearest whole pence
+        if(isset($matches[3])){
             if($matches[3] >= 5){
                 $pence++;
-            }else{
-                $pence--;
             }
 
         }

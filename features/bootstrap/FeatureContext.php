@@ -44,10 +44,9 @@ class FeatureContext extends MinkContext
 
         $actual = [];
         foreach($coinEls as $el){
-
-            $matches = [];
-            preg_match('/(.*) \| (.*)/', $el->getText(), $matches);
-            $actual[$matches[1]] = $matches[2];
+            $coin = $el->find('css','.designation')->getText();
+            $count = $el->find('css', '.count')->getText();
+            $actual[$coin] = $count;
         }
 
         foreach($table->getHash() as $coinData){

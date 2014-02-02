@@ -9,7 +9,7 @@ First 2 hours - building application skeleton
 
 ##Application requirements
 
-1. PHP 5.5
+1. PHP 5.4 (tested on 5.5)
 
 2. Composer
 

@@ -29,10 +29,25 @@ class ToPenceConverterSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_take_the_decimal_place_into_account()
+    function it_should_understand_the_decimal_point()
     {
         $this->assertConvertBehaviour([
             '1.87' => 187
+        ]);
+    }
+
+    function it_should_understand_the_pound_sign()
+    {
+        $this->assertConvertBehaviour([
+            '£2'    => 200,
+            '£10'   => 1000
+        ]);
+    }
+
+    function it_should_understand_how_the_pound_sign_and_decimal_point_behave()
+    {
+        $this->assertConvertBehaviour([
+            '£1.23'    => 123
         ]);
     }
 

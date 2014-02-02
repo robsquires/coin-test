@@ -52,6 +52,10 @@ class Application extends SilexApplication
                         new Assert\Regex([ // validating 'missing digits'
                              'pattern'     => '/[0-9]/',
                              'message' => 'Your amount should contain at least one numeric digit'
+                        ]),
+                        new Assert\Regex([ // validating 'non-numeric characters'
+                             'pattern'     => '/^[£.p]+$/',
+                             'message' => 'Your amount should not contain non-numeric characters'
                         ])
                     ]
                 ]) //adding the 'amount' text field

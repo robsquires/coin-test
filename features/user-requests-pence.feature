@@ -13,6 +13,9 @@ Feature: User requests number of pence for a given amount
          Then I should see "<message>"
 
          Examples:
-            | value | message                                                 |
-            |       | This value should not be blank.                         |
-            | £p    | Your amount should contain at least one numeric digit   |
+            | value  | message                                                 |
+            |        | This value should not be blank.                         |
+            | £p     | Your amount should contain at least one numeric digit   |
+            | 1x     | Your amount should not contain non-numeric characters   |
+            | £1x.0p | Your amount should not contain non-numeric characters   |
+

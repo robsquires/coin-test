@@ -3,13 +3,14 @@
 namespace CoinTest;
 
 use Silex\Application as SilexApplication;
-use Symfony\Component\HttpFoundation\Request;
+use Silex\Provider\ServiceControllerServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use CoinTest\Controller\FormController;
+
 /**
  * class Application
  **/
@@ -25,7 +26,7 @@ class Application extends SilexApplication
         $app = $this;
 
         $app['debug'] = true;
-
+        $app->register(new ServiceControllerServiceProvider()); //can DI controllers
         $app->register(new FormServiceProvider()); //to build forms
         $app->register(new ValidatorServiceProvider()); //to validate form input
         $app->register(new TwigServiceProvider(), [ 
@@ -36,42 +37,11 @@ class Application extends SilexApplication
             'locale_fallbacks' => ['en'],
         ]);
 
+        $app['app.controller.form'] = $app->share(function() use ($app) {
+            return new FormController($app);
+        });
 
         // Routing
-        $this->match('/', function (Request $request) use ( $app ) {
-
-
-
-            //building the form
-            $form = $app['form.factory']
-                ->createBuilder('form')
-                ->add('amount', 'text', [
-                    'constraints' => [ 
-                        new Assert\NotBlank(), //validating 'empty string'
-
-                        new Assert\Regex([ // validating 'missing digits'
-                             'pattern'     => '/[0-9]/',
-                             'message' => 'Your amount should contain at least one numeric digit'
-                        ]),
-                        new Assert\Regex([ // validating 'non-numeric characters'
-                             'pattern'     => '/^[£.p]+$/',
-                             'message' => 'Your amount should not contain non-numeric characters'
-                        ])
-                    ]
-                ]) //adding the 'amount' text field
-                ->getForm()
-            ;
-
-            $form->handleRequest($request);
-
-
-            //rendering and returning the HTML back to the application
-            return $app['twig']
-                ->render(
-                    'index.html.twig',
-                    ['form' => $form->createView()]
-                )
-            ;
-        });
+        $this->match('/', 'app.controller.form:indexAction');
     }
 }

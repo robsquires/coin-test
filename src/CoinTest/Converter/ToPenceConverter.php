@@ -21,7 +21,10 @@ class ToPenceConverter
 
         //if starts with & and doesnt contain a decimal point,
         //we need to convert to pence from pounds
-        if(preg_match('/^£((?!\.).)*$/', $amount )) {
+        if(
+            preg_match('/^£((?!\.).)*$/', $amount ) ||
+            preg_match('/^£\d+\.p$/', $amount ) //given the time using a seperate regex here
+        ) {
             $poundsToPence = 100;
         }
 

@@ -44,10 +44,19 @@ class ToPenceConverterSpec extends ObjectBehavior
         ]);
     }
 
-    function it_should_understand_how_the_pound_sign_and_decimal_point_behave()
+    function it_should_understand_how_the_pound_sign_and_decimal_point_behave_together()
     {
         $this->assertConvertBehaviour([
             '£1.23'    => 123
+        ]);
+    }
+
+    function it_should_ignore_pence_symbol_given_a_pound_or_decimal()
+    {
+        $this->assertConvertBehaviour([
+            '£1.87p'    => 187,
+            '£1p'       => 100,
+            '£1.p'      => 100
         ]);
     }
 

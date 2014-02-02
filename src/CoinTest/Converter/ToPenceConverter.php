@@ -16,13 +16,17 @@ class ToPenceConverter
     public function convert($amount)
     {
         $matches = [];
-        var_dump($amount);
+
         preg_match('/(\d+)\.?(\d+)?/', $amount, $matches);
-
-        if(count($matches) > 2){ //must have found a decimal
-
+        
+        $pounds = '';
+        $pence = $matches[1];
+        
+        if(count($matches) == 3){ //must have found a decimal
+            $pounds = $matches[1];
+            $pence = $matches[2];
         }
-        var_Dump($matches);
-        return (integer) $matches[0];
+
+        return (integer) ($pounds . $pence);
     }
 }

@@ -29,9 +29,15 @@ class ToPenceConverterSpec extends ObjectBehavior
         ]);
     }
 
+    function it_should_take_the_decimal_place_into_account()
+    {
+        $this->assertConvertBehaviour([
+            '1.87' => 187
+        ]);
+    }
 
     /**
-     * @param   $io input + output values in form [ input => output ]
+     * @param $io   input + output values in form [ input => output ]
      */
     protected function assertConvertBehaviour($io)
     {

@@ -20,6 +20,8 @@ deployed to AWS
 
 1. PHP 5.4 (tested on 5.5)
 
+2. `intl` extension (+ `curl` if you want to run the feature suite)
+
 2. Composer
 
 3. Rake (optional)

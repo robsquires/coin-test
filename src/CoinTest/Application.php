@@ -40,12 +40,6 @@ class Application extends SilexApplication
             'locale_fallbacks' => ['en'],
         ]);
 
-        $app['app.controller.form'] = $app->share(function() use ($app) {
-
-            return new FormController($app, $app['converter.toPence'], $app['calculator.coinsInPence']);
-        });
-
-
         //coin-test services
 
         $app['converter.toPence'] = $app->share(function() {
@@ -59,7 +53,15 @@ class Application extends SilexApplication
             return new CoinsInPenceCalculator($app['bank.sterling']);
         });
 
+
+        // Controllers
+        
+        $app['app.controller.form'] = $app->share(function() use ($app) {
+            return new FormController($app, $app['converter.toPence'], $app['calculator.coinsInPence']);
+        });
+
         // Routing
+
         $this->match('/', 'app.controller.form:indexAction');
     }
 }

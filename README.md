@@ -1,10 +1,19 @@
 #BBC Coin Algorithm Test
 
-First 2 hours - building application skeleton
+Hours 1 + 2
 
-3 + 4th hour - implementing business logic
+created basic Silex application
+added behat features
+implemented Form and validation rules
 
-5th hour - deployment
+Hours 3 + 4
+
+implemented business logic
+
+5th hour
+
+added twitter bootstrap
+deployed to AWS
 
 
 ##Application requirements
@@ -34,10 +43,8 @@ First 2 hours - building application skeleton
 
 ##Given more time
 
-1. Inject the `SterlingBank` with it's coin config - this is currently inititiated in the constructor
+1. Wrap form validation into a custom validator - I'd then be able to unit test it
 
-2. Move the form construction out of the controller
+2. The application's understanding of `£` `.` and `p` isnt very DRY - would consider reworking how these symbols are fed into validation + the `toPenceConverter`
 
-3. Tidy up the theme - create a layout and inject the form view only
-
-4. Improve the user interface
+3. Tidy up theme - use twig's `form_row` method to output the form elements, this way twitter bootstrap will be completely implemented

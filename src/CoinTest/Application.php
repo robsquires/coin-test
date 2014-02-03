@@ -28,7 +28,6 @@ class Application extends SilexApplication
         //need '$app' for the closures
         $app = $this;
 
-        $app['debug'] = true;
         $app->register(new ServiceControllerServiceProvider()); //can DI controllers
         $app->register(new FormServiceProvider()); //to build forms
         $app->register(new ValidatorServiceProvider()); //to validate form input

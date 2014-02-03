@@ -1,19 +1,16 @@
 #BBC Coin Algorithm Test
 
-Hours 1 + 2
+**Hours 1 + 2**
 
-created basic Silex application
-added behat features
-implemented Form and validation rules
+created basic Silex application, added behat features, implemented Form and validation rules
 
-Hours 3 + 4
+**Hours 3 + 4**
 
 implemented business logic
 
-5th hour
+**5th hour**
 
-added twitter bootstrap
-deployed to AWS
+added twitter bootstrap, deployed to AWS
 
 
 ##Application requirements

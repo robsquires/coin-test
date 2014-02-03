@@ -3,4 +3,4 @@ default:
         Behat\MinkExtension\Extension:
             default_session: "goutte"
             goutte: ~
-            base_url: 'http://coin-test.local:80/app.php'
+            base_url: 'http://coin-test.local'

@@ -37,9 +37,8 @@ namespace :host do
         vhost_inactive = "#{nginx_root}/sites-available/#{project_name}"
 
         vhost_active = "#{nginx_root}/sites-enabled/#{project_name}"
-
         ##need to come back to this
-        system "nxensite #{project_name}"
+        system "sudo ln -s  #{vhost_inactive} #{vhost_active}"
 
     end
 
